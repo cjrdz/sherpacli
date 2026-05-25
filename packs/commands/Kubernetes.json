@@ -1,0 +1,174 @@
+{
+	"$schema": "../../schemas/command-pack.schema.json",
+	"pack": {
+		"id": "kubernetes",
+		"name": "Kubernetes",
+		"version": "1.0.0",
+		"description": "Most important kubectl commands for cluster operations",
+		"icon": "☸️",
+		"author": "sherpacli-community",
+		"tags": ["kubernetes", "kubectl", "cluster"]
+	},
+	"commands": [
+		{
+			"id": "kubectl-get-nodes",
+			"name": "List nodes",
+			"description": "Show cluster nodes and status.",
+			"command": "kubectl get no",
+			"use_case": "Use to verify node readiness and availability.",
+			"category": "Cluster",
+			"tags": ["nodes", "cluster", "status"],
+			"examples": [
+				{
+					"description": "Include extra node details",
+					"command": "kubectl get no -o wide"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "kubectl-get-pods",
+			"name": "List pods",
+			"description": "Show pods in current namespace.",
+			"command": "kubectl get po",
+			"use_case": "Use for day-to-day workload visibility.",
+			"category": "Workloads",
+			"tags": ["pods", "list", "workloads"],
+			"examples": [
+				{
+					"description": "Show pod labels",
+					"command": "kubectl get po --show-labels"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "kubectl-describe-resource",
+			"name": "Describe resource",
+			"description": "Show detailed resource diagnostics.",
+			"command": "kubectl describe po <pod-name>",
+			"use_case": "Use to inspect events, conditions, and scheduling details.",
+			"category": "Debug",
+			"tags": ["describe", "events", "diagnostics"],
+			"examples": [
+				{
+					"description": "Describe deployment",
+					"command": "kubectl describe deploy <deployment-name>"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "kubectl-logs",
+			"name": "View pod logs",
+			"description": "Print logs for a pod.",
+			"command": "kubectl logs <pod-name>",
+			"use_case": "Use for troubleshooting application behavior.",
+			"category": "Debug",
+			"tags": ["logs", "pods", "debug"],
+			"examples": [
+				{
+					"description": "Follow logs for specific container",
+					"command": "kubectl logs -f -c <container-name> <pod-name>"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "kubectl-get-all",
+			"name": "List all resources",
+			"description": "Show common resources in namespace.",
+			"command": "kubectl get all",
+			"use_case": "Use for quick namespace inventory.",
+			"category": "Inventory",
+			"tags": ["all", "resources", "namespace"],
+			"examples": [
+				{
+					"description": "All namespaces",
+					"command": "kubectl get all --all-namespaces"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "kubectl-apply-file",
+			"name": "Apply manifest",
+			"description": "Create or update resources from file.",
+			"command": "kubectl apply -f manifest.yaml",
+			"use_case": "Use for declarative deployment updates.",
+			"category": "Deployment",
+			"tags": ["apply", "manifest", "deploy"],
+			"examples": [
+				{
+					"description": "Apply directory of manifests",
+					"command": "kubectl apply -f ./k8s/"
+				}
+			],
+			"danger_level": "caution"
+		},
+		{
+			"id": "kubectl-scale-deploy",
+			"name": "Scale deployment",
+			"description": "Adjust replica count for deployment.",
+			"command": "kubectl scale deploy <deployment-name> --replicas=5",
+			"use_case": "Use to handle load spikes or reduce resources.",
+			"category": "Deployment",
+			"tags": ["scale", "deployment", "replicas"],
+			"examples": [
+				{
+					"description": "Scale to 2 replicas",
+					"command": "kubectl scale deploy web --replicas=2"
+				}
+			],
+			"danger_level": "caution"
+		},
+		{
+			"id": "kubectl-rollout-status",
+			"name": "Check rollout status",
+			"description": "Watch deployment rollout progress.",
+			"command": "kubectl rollout status deploy/<deployment-name>",
+			"use_case": "Use after apply/update to verify successful rollout.",
+			"category": "Deployment",
+			"tags": ["rollout", "status", "deploy"],
+			"examples": [
+				{
+					"description": "Rollback latest rollout",
+					"command": "kubectl rollout undo deploy/<deployment-name>"
+				}
+			],
+			"danger_level": "caution"
+		},
+		{
+			"id": "kubectl-exec",
+			"name": "Exec into pod",
+			"description": "Run command in pod container.",
+			"command": "kubectl exec -it <pod-name> -- /bin/sh",
+			"use_case": "Use for in-cluster troubleshooting.",
+			"category": "Debug",
+			"tags": ["exec", "pod", "shell"],
+			"examples": [
+				{
+					"description": "Run env inside pod",
+					"command": "kubectl exec <pod-name> -- env"
+				}
+			],
+			"danger_level": "caution"
+		},
+		{
+			"id": "kubectl-delete-resource",
+			"name": "Delete resource",
+			"description": "Delete pod, deployment, or service.",
+			"command": "kubectl delete deploy <deployment-name>",
+			"use_case": "Use when intentionally removing workloads/resources.",
+			"category": "Cleanup",
+			"tags": ["delete", "resource", "cleanup"],
+			"examples": [
+				{
+					"description": "Delete pod",
+					"command": "kubectl delete pod <pod-name>"
+				}
+			],
+			"danger_level": "destructive"
+		}
+	]
+}

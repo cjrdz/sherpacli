@@ -1,0 +1,174 @@
+{
+	"$schema": "../../schemas/command-pack.schema.json",
+	"pack": {
+		"id": "docker",
+		"name": "Docker",
+		"version": "1.0.0",
+		"description": "Core Docker commands for images, containers, and cleanup",
+		"icon": "🐳",
+		"author": "sherpacli-community",
+		"tags": ["docker", "containers", "images"]
+	},
+	"commands": [
+		{
+			"id": "docker-ps",
+			"name": "List running containers",
+			"description": "Show currently running containers.",
+			"command": "docker ps",
+			"use_case": "Use to inspect active containers quickly.",
+			"category": "Containers",
+			"tags": ["ps", "list", "running"],
+			"examples": [
+				{
+					"description": "Include stopped containers",
+					"command": "docker ps -a"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "docker-images",
+			"name": "List images",
+			"description": "Show local Docker images.",
+			"command": "docker images",
+			"use_case": "Use to check available local image tags.",
+			"category": "Images",
+			"tags": ["images", "list", "local"],
+			"examples": [
+				{
+					"description": "List images",
+					"command": "docker images"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "docker-run-detached",
+			"name": "Run container detached",
+			"description": "Start a container in background with port mapping.",
+			"command": "docker run -d -p 80:80 --name my-nginx nginx",
+			"use_case": "Use to launch services in background.",
+			"category": "Containers",
+			"tags": ["run", "detached", "ports"],
+			"examples": [
+				{
+					"description": "Run getting-started image",
+					"command": "docker run -d -p 80:80 docker/getting-started"
+				}
+			],
+			"danger_level": "caution"
+		},
+		{
+			"id": "docker-exec-shell",
+			"name": "Open shell in container",
+			"description": "Attach interactive shell to running container.",
+			"command": "docker exec -it <container> bash",
+			"use_case": "Use for live debugging inside containers.",
+			"category": "Debug",
+			"tags": ["exec", "shell", "debug"],
+			"examples": [
+				{
+					"description": "Inspect app container",
+					"command": "docker exec -it my-nginx bash"
+				}
+			],
+			"danger_level": "caution"
+		},
+		{
+			"id": "docker-logs",
+			"name": "View container logs",
+			"description": "Show logs from a container.",
+			"command": "docker logs <container>",
+			"use_case": "Use to troubleshoot startup/runtime errors.",
+			"category": "Debug",
+			"tags": ["logs", "debug", "container"],
+			"examples": [
+				{
+					"description": "Follow logs in real-time",
+					"command": "docker logs -f my-nginx"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "docker-stop",
+			"name": "Stop container",
+			"description": "Gracefully stop a running container.",
+			"command": "docker stop <container>",
+			"use_case": "Use before updates or removal.",
+			"category": "Containers",
+			"tags": ["stop", "lifecycle", "container"],
+			"examples": [
+				{
+					"description": "Stop by name",
+					"command": "docker stop my-nginx"
+				}
+			],
+			"danger_level": "caution"
+		},
+		{
+			"id": "docker-rm",
+			"name": "Remove container",
+			"description": "Delete stopped container.",
+			"command": "docker rm <container>",
+			"use_case": "Use to clean up old containers.",
+			"category": "Cleanup",
+			"tags": ["remove", "container", "cleanup"],
+			"examples": [
+				{
+					"description": "Remove my-nginx container",
+					"command": "docker rm my-nginx"
+				}
+			],
+			"danger_level": "destructive"
+		},
+		{
+			"id": "docker-build-tag",
+			"name": "Build tagged image",
+			"description": "Build image from Dockerfile in current directory.",
+			"command": "docker build -t myapp:latest .",
+			"use_case": "Use to package local applications as images.",
+			"category": "Build",
+			"tags": ["build", "tag", "dockerfile"],
+			"examples": [
+				{
+					"description": "Build with custom Dockerfile",
+					"command": "docker build -f Dockerfile.dev -t myapp:dev ."
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "docker-pull-push",
+			"name": "Pull and push image",
+			"description": "Download or upload images to registry.",
+			"command": "docker pull nginx && docker push user/image:tag",
+			"use_case": "Use when syncing images with remote registry.",
+			"category": "Registry",
+			"tags": ["pull", "push", "registry"],
+			"examples": [
+				{
+					"description": "Authenticate then push",
+					"command": "docker login && docker push user/image:tag"
+				}
+			],
+			"danger_level": "caution"
+		},
+		{
+			"id": "docker-system-prune",
+			"name": "Prune unused resources",
+			"description": "Remove unused containers, images, networks, and build cache.",
+			"command": "docker system prune -a",
+			"use_case": "Use to reclaim disk space from unused Docker artifacts.",
+			"category": "Cleanup",
+			"tags": ["prune", "cleanup", "disk-space"],
+			"examples": [
+				{
+					"description": "Safer prune (no -a)",
+					"command": "docker system prune"
+				}
+			],
+			"danger_level": "destructive"
+		}
+	]
+}

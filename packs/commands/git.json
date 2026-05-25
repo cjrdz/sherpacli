@@ -1,0 +1,206 @@
+{
+	"$schema": "../../schemas/command-pack.schema.json",
+	"pack": {
+		"id": "git",
+		"name": "Git",
+		"version": "1.0.0",
+		"description": "Most-used Git commands for everyday version control",
+		"icon": "🌿",
+		"author": "sherpacli-community",
+		"tags": ["git", "vcs", "source-control"]
+	},
+	"commands": [
+		{
+			"id": "git-init",
+			"name": "Initialize repository",
+			"description": "Create a new Git repository in current directory.",
+			"command": "git init",
+			"use_case": "Use to start version control in a new project.",
+			"category": "Repository",
+			"tags": ["init", "repo", "setup"],
+			"examples": [
+				{
+					"description": "Initialize in current folder",
+					"command": "git init"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "git-clone",
+			"name": "Clone repository",
+			"description": "Clone a remote repository locally.",
+			"command": "git clone <url>",
+			"use_case": "Use to copy an existing project from remote.",
+			"category": "Repository",
+			"tags": ["clone", "remote", "setup"],
+			"examples": [
+				{
+					"description": "Clone into folder",
+					"command": "git clone https://github.com/org/repo.git"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "git-status-short",
+			"name": "Check status",
+			"description": "Show working tree status in short format.",
+			"command": "git status --short",
+			"use_case": "Use before staging and committing to review changed files.",
+			"category": "Changes",
+			"tags": ["status", "changes", "review"],
+			"examples": [
+				{
+					"description": "Compact status",
+					"command": "git status --short"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "git-add-all",
+			"name": "Stage all changes",
+			"description": "Stage all tracked and untracked changes.",
+			"command": "git add .",
+			"use_case": "Use to stage all local modifications for a commit.",
+			"category": "Changes",
+			"tags": ["add", "stage", "commit"],
+			"examples": [
+				{
+					"description": "Add everything in current tree",
+					"command": "git add ."
+				}
+			],
+			"danger_level": "caution"
+		},
+		{
+			"id": "git-commit",
+			"name": "Commit staged changes",
+			"description": "Create a commit from staged files.",
+			"command": "git commit -m \"message\"",
+			"use_case": "Use to save a logical unit of work.",
+			"category": "Changes",
+			"tags": ["commit", "history", "message"],
+			"examples": [
+				{
+					"description": "Commit with conventional prefix",
+					"command": "git commit -m \"feat: add search command\""
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "git-log-graph",
+			"name": "View history graph",
+			"description": "Show decorated one-line commit graph.",
+			"command": "git log --pretty=oneline --graph --decorate --all",
+			"use_case": "Use to understand branch history and merges quickly.",
+			"category": "History",
+			"tags": ["log", "graph", "history"],
+			"examples": [
+				{
+					"description": "Graph all branches",
+					"command": "git log --pretty=oneline --graph --decorate --all"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "git-branch-list",
+			"name": "List branches",
+			"description": "List local and remote branches with tracking info.",
+			"command": "git branch -av",
+			"use_case": "Use before creating, switching, or deleting branches.",
+			"category": "Branches",
+			"tags": ["branch", "remote", "tracking"],
+			"examples": [
+				{
+					"description": "Verbose branch list",
+					"command": "git branch -vv"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "git-checkout-new-branch",
+			"name": "Create and switch branch",
+			"description": "Create a new branch and switch to it.",
+			"command": "git checkout -b <new-branch>",
+			"use_case": "Use to start feature work in an isolated branch.",
+			"category": "Branches",
+			"tags": ["checkout", "branch", "feature"],
+			"examples": [
+				{
+					"description": "Create feature branch",
+					"command": "git checkout -b feat/new-ui"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "git-pull",
+			"name": "Pull latest changes",
+			"description": "Fetch and merge from tracking remote branch.",
+			"command": "git pull",
+			"use_case": "Use to sync local branch with upstream before work or push.",
+			"category": "Sync",
+			"tags": ["pull", "fetch", "merge"],
+			"examples": [
+				{
+					"description": "Pull current branch",
+					"command": "git pull"
+				}
+			],
+			"danger_level": "caution"
+		},
+		{
+			"id": "git-push",
+			"name": "Push branch",
+			"description": "Push local commits to remote.",
+			"command": "git push origin <branch>",
+			"use_case": "Use to publish local changes to shared repository.",
+			"category": "Sync",
+			"tags": ["push", "remote", "publish"],
+			"examples": [
+				{
+					"description": "Push current branch and set upstream",
+					"command": "git push -u origin feat/new-ui"
+				}
+			],
+			"danger_level": "caution"
+		},
+		{
+			"id": "git-stash",
+			"name": "Stash local changes",
+			"description": "Temporarily store uncommitted changes.",
+			"command": "git stash",
+			"use_case": "Use before branch switches or pull operations.",
+			"category": "Workflow",
+			"tags": ["stash", "temporary", "context-switch"],
+			"examples": [
+				{
+					"description": "Stash and include untracked files",
+					"command": "git stash -u"
+				}
+			],
+			"danger_level": "caution"
+		},
+		{
+			"id": "git-reset-hard",
+			"name": "Hard reset to HEAD",
+			"description": "Discard all uncommitted changes in working tree and index.",
+			"command": "git reset --hard",
+			"use_case": "Use only when you intentionally want to drop local changes.",
+			"category": "Recovery",
+			"tags": ["reset", "discard", "danger"],
+			"examples": [
+				{
+					"description": "Reset and clean working state",
+					"command": "git reset --hard HEAD"
+				}
+			],
+			"danger_level": "destructive"
+		}
+	]
+}

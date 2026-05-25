@@ -1,0 +1,174 @@
+{
+	"$schema": "../../schemas/command-pack.schema.json",
+	"pack": {
+		"id": "curl",
+		"name": "Curl",
+		"version": "1.0.0",
+		"description": "Core curl commands for HTTP requests, APIs, and downloads",
+		"icon": "🌐",
+		"author": "sherpacli-community",
+		"tags": ["curl", "http", "api"]
+	},
+	"commands": [
+		{
+			"id": "curl-get",
+			"name": "Simple GET request",
+			"description": "Send a basic HTTP GET request.",
+			"command": "curl https://example.com",
+			"use_case": "Use to quickly fetch endpoint output.",
+			"category": "HTTP",
+			"tags": ["get", "http", "request"],
+			"examples": [
+				{
+					"description": "Fetch homepage",
+					"command": "curl https://example.com"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "curl-head",
+			"name": "Get response headers",
+			"description": "Request only HTTP headers.",
+			"command": "curl -I https://example.com",
+			"use_case": "Use to inspect status codes and headers quickly.",
+			"category": "HTTP",
+			"tags": ["head", "headers", "status"],
+			"examples": [
+				{
+					"description": "Inspect redirect headers",
+					"command": "curl -I https://example.com"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "curl-follow-redirect",
+			"name": "Follow redirects",
+			"description": "Follow 3xx redirects to final destination.",
+			"command": "curl -L https://example.com",
+			"use_case": "Use for endpoints that redirect (short links, moved APIs).",
+			"category": "HTTP",
+			"tags": ["redirect", "follow", "http"],
+			"examples": [
+				{
+					"description": "Follow redirected URL",
+					"command": "curl -L https://short.url/abc"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "curl-verbose",
+			"name": "Verbose HTTP debug",
+			"description": "Show request and response debug information.",
+			"command": "curl -v https://example.com",
+			"use_case": "Use to debug TLS, headers, and connection issues.",
+			"category": "Debug",
+			"tags": ["verbose", "debug", "tls"],
+			"examples": [
+				{
+					"description": "Verbose HEAD request",
+					"command": "curl -v -I https://example.com"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "curl-post-form",
+			"name": "POST form data",
+			"description": "Send URL-encoded form data via POST.",
+			"command": "curl -d 'name=value' https://example.com/api",
+			"use_case": "Use for classic form-style API endpoints.",
+			"category": "HTTP",
+			"tags": ["post", "form", "data"],
+			"examples": [
+				{
+					"description": "Send credentials",
+					"command": "curl -d 'name=username&password=123456' https://example.com/login"
+				}
+			],
+			"danger_level": "caution"
+		},
+		{
+			"id": "curl-post-json",
+			"name": "POST JSON body",
+			"description": "Send JSON payload with content-type header.",
+			"command": "curl -H 'content-type: application/json' -d '{\"key\":\"value\"}' https://example.com/api",
+			"use_case": "Use for modern REST APIs expecting JSON payloads.",
+			"category": "HTTP",
+			"tags": ["post", "json", "api"],
+			"examples": [
+				{
+					"description": "Create JSON resource",
+					"command": "curl -X POST https://example.com/items -H 'content-type: application/json' -d '{\"name\":\"item\"}'"
+				}
+			],
+			"danger_level": "caution"
+		},
+		{
+			"id": "curl-auth-basic",
+			"name": "Use basic auth",
+			"description": "Authenticate request with username and password.",
+			"command": "curl -u username:password https://example.com/private",
+			"use_case": "Use for endpoints with HTTP Basic authentication.",
+			"category": "Auth",
+			"tags": ["auth", "basic", "credentials"],
+			"examples": [
+				{
+					"description": "Basic auth request",
+					"command": "curl --user user:pass https://example.com/private"
+				}
+			],
+			"danger_level": "caution"
+		},
+		{
+			"id": "curl-download-file",
+			"name": "Download to file",
+			"description": "Download URL content directly into a file.",
+			"command": "curl -o output.file https://example.com/file",
+			"use_case": "Use to save API output or artifacts locally.",
+			"category": "Download",
+			"tags": ["download", "output", "file"],
+			"examples": [
+				{
+					"description": "Keep remote filename",
+					"command": "curl --remote-name https://example.com/linux.iso"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "curl-resume-download",
+			"name": "Resume partial download",
+			"description": "Continue a previously interrupted download.",
+			"command": "curl --remote-name --continue-at - https://example.com/linux.iso",
+			"use_case": "Use for large file downloads that were interrupted.",
+			"category": "Download",
+			"tags": ["resume", "download", "large-files"],
+			"examples": [
+				{
+					"description": "Resume ISO download",
+					"command": "curl --remote-name --continue-at - https://example.com/linux.iso"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "curl-check-status-code",
+			"name": "Check HTTP status code only",
+			"description": "Return only HTTP status code for availability checks.",
+			"command": "curl -o /dev/null --silent -Iw '%{http_code}' https://example.com/resource",
+			"use_case": "Use in scripts and health checks.",
+			"category": "Monitoring",
+			"tags": ["status", "healthcheck", "script"],
+			"examples": [
+				{
+					"description": "Website availability check",
+					"command": "curl -o /dev/null --silent -Iw '%{http_code}' https://example.com"
+				}
+			],
+			"danger_level": "safe"
+		}
+	]
+}

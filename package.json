@@ -1,0 +1,26 @@
+{
+	"name": "sherpacli",
+	"version": "0.0.1",
+	"private": true,
+	"bin": {
+		"sherpa": "./bin/sherpa"
+	},
+	"packageManager": "bun@latest",
+	"workspaces": [
+		"apps/*"
+	],
+	"scripts": {
+		"sherpa": "./bin/sherpa",
+		"dev": "cd apps/tui && bun run dev",
+		"start": "cd apps/tui && bun run start",
+		"build": "cd apps/tui && bun run build",
+		"check": "cd apps/tui && bun run check",
+		"test": "cd apps/tui && bun run test",
+		"validate": "bun run scripts/validate-pack.ts",
+		"format": "bunx biome format --write ."
+	},
+	"devDependencies": {
+		"@biomejs/biome": "*",
+		"ajv": "*"
+	}
+}

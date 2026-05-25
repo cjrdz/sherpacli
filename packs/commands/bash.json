@@ -1,0 +1,158 @@
+{
+	"$schema": "../../schemas/command-pack.schema.json",
+	"pack": {
+		"id": "bash",
+		"name": "Bash",
+		"version": "1.0.0",
+		"description": "Essential Bash shell scripting and command-line workflows",
+		"icon": "🐚",
+		"author": "sherpacli-community",
+		"tags": ["bash", "shell", "scripting"]
+	},
+	"commands": [
+		{
+			"id": "bash-strict-mode",
+			"name": "Enable strict mode",
+			"description": "Enable safer Bash defaults for scripts.",
+			"command": "set -euo pipefail",
+			"use_case": "Use at the top of Bash scripts to fail fast and avoid silent errors.",
+			"category": "Scripting",
+			"tags": ["strict", "safety", "scripts"],
+			"examples": [
+				{
+					"description": "Common strict-mode header",
+					"command": "set -euo pipefail\nIFS=$'\\n\\t'"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "bash-run-script",
+			"name": "Run script file",
+			"description": "Execute a Bash script file.",
+			"command": "bash script.sh",
+			"use_case": "Use when running a script without changing executable permissions.",
+			"category": "Execution",
+			"tags": ["run", "script", "execute"],
+			"examples": [
+				{
+					"description": "Run deploy script",
+					"command": "bash deploy.sh"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "bash-condition-file-exists",
+			"name": "Check file exists",
+			"description": "Conditional check for file existence.",
+			"command": "[[ -e file.txt ]] && echo 'exists'",
+			"use_case": "Use in scripts before reading or modifying files.",
+			"category": "Conditionals",
+			"tags": ["if", "file", "check"],
+			"examples": [
+				{
+					"description": "Guard before reading",
+					"command": "if [[ -e config.env ]]; then cat config.env; fi"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "bash-for-range",
+			"name": "Loop over range",
+			"description": "Basic numeric for-loop over a range.",
+			"command": "for i in {1..5}; do echo \"$i\"; done",
+			"use_case": "Use for repeated command execution with small numeric ranges.",
+			"category": "Loops",
+			"tags": ["for", "loop", "range"],
+			"examples": [
+				{
+					"description": "Print 1 through 5",
+					"command": "for i in {1..5}; do echo \"Welcome $i\"; done"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "bash-while-read-file",
+			"name": "Read file line by line",
+			"description": "Process each line from a file.",
+			"command": "while read -r line; do echo \"$line\"; done < file.txt",
+			"use_case": "Use for line-safe parsing without word-splitting bugs.",
+			"category": "Loops",
+			"tags": ["while", "read", "file"],
+			"examples": [
+				{
+					"description": "Print each line",
+					"command": "while read -r line; do printf '%s\\n' \"$line\"; done < input.txt"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "bash-command-substitution",
+			"name": "Use command substitution",
+			"description": "Capture command output into strings.",
+			"command": "echo \"Current dir: $(pwd)\"",
+			"use_case": "Use to embed command output in scripts and logs.",
+			"category": "Expansion",
+			"tags": ["substitution", "output", "pwd"],
+			"examples": [
+				{
+					"description": "Store git hash",
+					"command": "commit=$(git rev-parse --short HEAD)"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "bash-parameter-default",
+			"name": "Default parameter value",
+			"description": "Use fallback value when variable is unset.",
+			"command": "echo \"${NAME:-guest}\"",
+			"use_case": "Use to make scripts resilient when env vars are missing.",
+			"category": "Expansion",
+			"tags": ["parameter", "default", "env"],
+			"examples": [
+				{
+					"description": "Default deployment env",
+					"command": "env_name=\"${ENVIRONMENT:-dev}\""
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "bash-redirect-stderr-stdout",
+			"name": "Redirect stderr to stdout",
+			"description": "Combine stderr and stdout streams.",
+			"command": "command > output.log 2>&1",
+			"use_case": "Use when capturing full command output in one log file.",
+			"category": "Redirection",
+			"tags": ["redirect", "stderr", "stdout"],
+			"examples": [
+				{
+					"description": "Capture build output",
+					"command": "npm run build > build.log 2>&1"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "bash-read-input",
+			"name": "Prompt for input",
+			"description": "Read user input into a variable.",
+			"command": "read -r answer",
+			"use_case": "Use in interactive scripts for confirmations or parameters.",
+			"category": "Interactive",
+			"tags": ["read", "prompt", "input"],
+			"examples": [
+				{
+					"description": "Prompt yes/no",
+					"command": "echo -n 'Proceed? [y/n]: '; read -r ans"
+				}
+			],
+			"danger_level": "safe"
+		}
+	]
+}

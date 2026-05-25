@@ -1,0 +1,25 @@
+{
+	"name": "@sherpacli/tui",
+	"version": "0.0.1",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "bun src/main.tsx",
+		"start": "bun src/main.tsx",
+		"build": "bun build ./src/main.tsx --outdir ../../dist/tui --target bun",
+		"check": "bunx tsc --noEmit -p tsconfig.json",
+		"test": "bun test"
+	},
+	"dependencies": {
+		"@opentui/core": "*",
+		"@opentui/solid": "*",
+		"ajv": "*",
+		"fuse.js": "*",
+		"solid-js": "*"
+	},
+	"devDependencies": {
+		"@types/bun": "*",
+		"@types/babel__core": "*",
+		"typescript": "*"
+	}
+}

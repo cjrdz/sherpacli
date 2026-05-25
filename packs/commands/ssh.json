@@ -1,0 +1,174 @@
+{
+	"$schema": "../../schemas/command-pack.schema.json",
+	"pack": {
+		"id": "ssh",
+		"name": "SSH",
+		"version": "1.0.0",
+		"description": "Essential SSH, SCP, and key management commands",
+		"icon": "🔐",
+		"author": "sherpacli-community",
+		"tags": ["ssh", "scp", "remote"]
+	},
+	"commands": [
+		{
+			"id": "ssh-connect-default",
+			"name": "Connect to host",
+			"description": "Open SSH session on default port 22.",
+			"command": "ssh user@host",
+			"use_case": "Use for standard remote shell access.",
+			"category": "Connection",
+			"tags": ["connect", "remote", "shell"],
+			"examples": [
+				{
+					"description": "Connect to server",
+					"command": "ssh root@192.168.1.5"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "ssh-connect-port",
+			"name": "Connect using custom port",
+			"description": "Connect to SSH server on non-default port.",
+			"command": "ssh user@host -p 6222",
+			"use_case": "Use when SSH daemon is not on port 22.",
+			"category": "Connection",
+			"tags": ["port", "connect", "ssh"],
+			"examples": [
+				{
+					"description": "Use port 6222",
+					"command": "ssh root@192.168.1.5 -p 6222"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "ssh-connect-key",
+			"name": "Connect with identity file",
+			"description": "Connect using a PEM/private key file.",
+			"command": "ssh -i ~/.ssh/id_rsa user@host",
+			"use_case": "Use for key-based auth on cloud hosts.",
+			"category": "Connection",
+			"tags": ["key", "identity", "auth"],
+			"examples": [
+				{
+					"description": "Connect using key file",
+					"command": "ssh -i /path/file.pem ubuntu@10.0.0.10"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "ssh-remote-command",
+			"name": "Execute remote command",
+			"description": "Run one command remotely and exit.",
+			"command": "ssh user@host 'ls -la'",
+			"use_case": "Use for quick remote checks without opening a shell.",
+			"category": "Execution",
+			"tags": ["remote", "command", "automation"],
+			"examples": [
+				{
+					"description": "Check disk usage remotely",
+					"command": "ssh user@host 'df -h'"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "scp-upload",
+			"name": "Copy local file to remote",
+			"description": "Upload a local file to remote server.",
+			"command": "scp ./file.ext user@host:/remote/dir/",
+			"use_case": "Use to move files to servers quickly.",
+			"category": "SCP",
+			"tags": ["scp", "upload", "copy"],
+			"examples": [
+				{
+					"description": "Upload build artifact",
+					"command": "scp ./app.tar.gz user@host:/tmp/"
+				}
+			],
+			"danger_level": "caution"
+		},
+		{
+			"id": "scp-download",
+			"name": "Copy remote file to local",
+			"description": "Download a file from remote server.",
+			"command": "scp user@host:/remote/file.ext ./",
+			"use_case": "Use to retrieve logs, backups, or artifacts.",
+			"category": "SCP",
+			"tags": ["scp", "download", "copy"],
+			"examples": [
+				{
+					"description": "Download remote log",
+					"command": "scp user@host:/var/log/app.log ./app.log"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "scp-recursive",
+			"name": "Copy directory recursively",
+			"description": "Recursively copy directories using SCP.",
+			"command": "scp -r ./dir user@host:/remote/path/",
+			"use_case": "Use to transfer full folders.",
+			"category": "SCP",
+			"tags": ["scp", "recursive", "directory"],
+			"examples": [
+				{
+					"description": "Copy local folder to remote",
+					"command": "scp -r ./dist user@host:/opt/app/"
+				}
+			],
+			"danger_level": "caution"
+		},
+		{
+			"id": "ssh-keygen-ed25519",
+			"name": "Generate SSH key",
+			"description": "Create modern ED25519 key pair.",
+			"command": "ssh-keygen -t ed25519 -C 'you@example.com'",
+			"use_case": "Use for secure key-based authentication setup.",
+			"category": "Keys",
+			"tags": ["keygen", "ed25519", "auth"],
+			"examples": [
+				{
+					"description": "Generate RSA 4096 key",
+					"command": "ssh-keygen -t rsa -b 4096 -C 'you@example.com'"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "ssh-copy-id",
+			"name": "Install public key on server",
+			"description": "Copy local public key to remote authorized_keys.",
+			"command": "ssh-copy-id user@host",
+			"use_case": "Use to enable passwordless SSH login.",
+			"category": "Keys",
+			"tags": ["copy-id", "authorized-keys", "setup"],
+			"examples": [
+				{
+					"description": "Install specific public key",
+					"command": "ssh-copy-id -i ~/.ssh/id_rsa.pub user@host"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "ssh-local-port-forward",
+			"name": "Local port forwarding",
+			"description": "Forward local port to remote target via SSH.",
+			"command": "ssh -L 8080:example.com:80 user@ssh_server",
+			"use_case": "Use to securely access private services through bastion host.",
+			"category": "Tunneling",
+			"tags": ["tunnel", "forward", "port"],
+			"examples": [
+				{
+					"description": "Run tunnel in background",
+					"command": "ssh -f -N -L 8080:example.com:80 user@ssh_server"
+				}
+			],
+			"danger_level": "caution"
+		}
+	]
+}

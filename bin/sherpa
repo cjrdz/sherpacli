@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_PATH="${BASH_SOURCE[0]}"
+
+# Resolve symlinks so the launcher works from ~/.bun/bin as well.
+while [[ -L "$SCRIPT_PATH" ]]; do
+	LINK_TARGET="$(readlink "$SCRIPT_PATH")"
+	if [[ "$LINK_TARGET" == /* ]]; then
+		SCRIPT_PATH="$LINK_TARGET"
+	else
+		SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_PATH")" && pwd)"
+		SCRIPT_PATH="$SCRIPT_DIR/$LINK_TARGET"
+	fi
+done
+
+SCRIPT_DIR="$(cd "$(dirname "$SCRIPT_PATH")" && pwd)"
+ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+APP_DIR="$ROOT_DIR/apps/tui"
+
+if [[ ! -d "$APP_DIR" ]]; then
+	echo "sherpa: expected app directory not found: $APP_DIR" >&2
+	exit 1
+fi
+
+cd "$APP_DIR"
+
+exec bun run start -- "$@"

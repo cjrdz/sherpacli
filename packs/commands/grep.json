@@ -1,0 +1,174 @@
+{
+	"$schema": "../../schemas/command-pack.schema.json",
+	"pack": {
+		"id": "grep",
+		"name": "Grep",
+		"version": "1.0.0",
+		"description": "Most useful grep commands for search and filtering",
+		"icon": "🔍",
+		"author": "sherpacli-community",
+		"tags": ["grep", "search", "text"]
+	},
+	"commands": [
+		{
+			"id": "grep-basic",
+			"name": "Search string in file",
+			"description": "Find lines containing a string.",
+			"command": "grep 'pattern' file.txt",
+			"use_case": "Use for quick exact text lookup in files.",
+			"category": "Search",
+			"tags": ["basic", "pattern", "file"],
+			"examples": [
+				{
+					"description": "Find 'mellon' in file",
+					"command": "grep 'mellon' myfile.txt"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "grep-ignore-case",
+			"name": "Case-insensitive search",
+			"description": "Match regardless of letter case.",
+			"command": "grep -i 'pattern' file.txt",
+			"use_case": "Use when source text has unknown casing.",
+			"category": "Search",
+			"tags": ["ignore-case", "search", "text"],
+			"examples": [
+				{
+					"description": "Find DA in any case",
+					"command": "grep -i '^DA' demo.txt"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "grep-whole-word",
+			"name": "Match whole word",
+			"description": "Only match complete words.",
+			"command": "grep -w 'word' file.txt",
+			"use_case": "Use to avoid partial matches inside larger words.",
+			"category": "Search",
+			"tags": ["whole-word", "exact", "search"],
+			"examples": [
+				{
+					"description": "Find exact word 'of'",
+					"command": "grep -w 'of' demo.txt"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "grep-recursive",
+			"name": "Recursive search",
+			"description": "Search through directories recursively.",
+			"command": "grep -r 'pattern' ./path",
+			"use_case": "Use to scan whole projects quickly.",
+			"category": "Search",
+			"tags": ["recursive", "directory", "project"],
+			"examples": [
+				{
+					"description": "Search nginx logs",
+					"command": "grep -r 'cheatsheets.zip' /var/log/nginx/"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "grep-invert-match",
+			"name": "Invert match",
+			"description": "Show lines that do not match pattern.",
+			"command": "grep -v 'pattern' file.txt",
+			"use_case": "Use to exclude noise lines from output.",
+			"category": "Filtering",
+			"tags": ["invert", "exclude", "filter"],
+			"examples": [
+				{
+					"description": "Exclude warnings",
+					"command": "grep -v 'warning' /var/log/syslog"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "grep-line-numbers",
+			"name": "Show line numbers",
+			"description": "Display matching lines with line numbers.",
+			"command": "grep -n 'pattern' file.txt",
+			"use_case": "Use for fast navigation to match locations.",
+			"category": "Output",
+			"tags": ["line-number", "context", "debug"],
+			"examples": [
+				{
+					"description": "Find with line number",
+					"command": "grep -n 'go' demo.txt"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "grep-count",
+			"name": "Count matches",
+			"description": "Count matching lines in a file.",
+			"command": "grep -c 'pattern' file.txt",
+			"use_case": "Use for quick metrics and alerts.",
+			"category": "Output",
+			"tags": ["count", "metrics", "summary"],
+			"examples": [
+				{
+					"description": "Count error lines",
+					"command": "grep -c 'error' /var/log/syslog"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "grep-filenames-only",
+			"name": "Show filenames with matches",
+			"description": "Print file names that contain matching lines.",
+			"command": "grep -l 'pattern' ./path/*",
+			"use_case": "Use to locate files before deeper inspection.",
+			"category": "Output",
+			"tags": ["filename", "match", "list"],
+			"examples": [
+				{
+					"description": "Find files containing word",
+					"command": "grep -l 'robot' /var/log/*"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "grep-extended-regex",
+			"name": "Use extended regex",
+			"description": "Enable ERE patterns with alternation.",
+			"command": "grep -E 'foo|bar' file.txt",
+			"use_case": "Use for more expressive pattern matching.",
+			"category": "Regex",
+			"tags": ["regex", "extended", "alternation"],
+			"examples": [
+				{
+					"description": "Match two spellings",
+					"command": "grep -E 'ja(s|cks)on' filename"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "grep-context-lines",
+			"name": "Show surrounding context",
+			"description": "Display lines before and after each match.",
+			"command": "grep -C 3 'Exception' error.log",
+			"use_case": "Use for debugging logs with surrounding context.",
+			"category": "Debug",
+			"tags": ["context", "logs", "debug"],
+			"examples": [
+				{
+					"description": "3 lines after match",
+					"command": "grep -A 3 'Exception' error.log"
+				}
+			],
+			"danger_level": "safe"
+		}
+	]
+}

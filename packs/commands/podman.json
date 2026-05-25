@@ -1,0 +1,174 @@
+{
+	"$schema": "../../schemas/command-pack.schema.json",
+	"pack": {
+		"id": "podman",
+		"name": "Podman",
+		"version": "1.0.0",
+		"description": "Important Podman commands for image and container workflows",
+		"icon": "🦭",
+		"author": "sherpacli-community",
+		"tags": ["podman", "containers", "images"]
+	},
+	"commands": [
+		{
+			"id": "podman-images",
+			"name": "List local images",
+			"description": "Display local image cache.",
+			"command": "podman images",
+			"use_case": "Use to inspect available local images.",
+			"category": "Images",
+			"tags": ["images", "list", "local"],
+			"examples": [
+				{
+					"description": "Show all images",
+					"command": "podman images"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "podman-search",
+			"name": "Search image",
+			"description": "Search local cache and configured registries.",
+			"command": "podman search nginx",
+			"use_case": "Use to discover image names before pulling.",
+			"category": "Images",
+			"tags": ["search", "registry", "discover"],
+			"examples": [
+				{
+					"description": "Find postgres images",
+					"command": "podman search postgres"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "podman-pull",
+			"name": "Pull image",
+			"description": "Pull image from remote registry.",
+			"command": "podman pull docker.io/library/nginx:latest",
+			"use_case": "Use to download images before run/build.",
+			"category": "Images",
+			"tags": ["pull", "registry", "image"],
+			"examples": [
+				{
+					"description": "Pull busybox",
+					"command": "podman pull docker.io/library/busybox:latest"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "podman-build",
+			"name": "Build image",
+			"description": "Build image from current directory Dockerfile.",
+			"command": "podman build -t myapp:latest .",
+			"use_case": "Use to build local images for development.",
+			"category": "Build",
+			"tags": ["build", "dockerfile", "tag"],
+			"examples": [
+				{
+					"description": "Build with custom Dockerfile",
+					"command": "podman build -t myapp:dev -f Dockerfile.dev ."
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "podman-run",
+			"name": "Run interactive container",
+			"description": "Run container with terminal attached.",
+			"command": "podman run --rm -it --name app myapp:latest /bin/bash",
+			"use_case": "Use for quick debug sessions in containers.",
+			"category": "Containers",
+			"tags": ["run", "interactive", "debug"],
+			"examples": [
+				{
+					"description": "Run detached web container",
+					"command": "podman run -d -p 8080:80 --name web nginx:latest"
+				}
+			],
+			"danger_level": "caution"
+		},
+		{
+			"id": "podman-ps-all",
+			"name": "List containers",
+			"description": "List running and stopped containers.",
+			"command": "podman ps --all",
+			"use_case": "Use to inspect container state.",
+			"category": "Containers",
+			"tags": ["ps", "containers", "status"],
+			"examples": [
+				{
+					"description": "Only running containers",
+					"command": "podman ps"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "podman-logs",
+			"name": "Show container logs",
+			"description": "Print logs from a container.",
+			"command": "podman logs container_name",
+			"use_case": "Use for troubleshooting container startup/runtime issues.",
+			"category": "Debug",
+			"tags": ["logs", "debug", "container"],
+			"examples": [
+				{
+					"description": "Follow logs",
+					"command": "podman logs -f container_name"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "podman-exec",
+			"name": "Exec in container",
+			"description": "Run command inside running container.",
+			"command": "podman exec -it container_name /bin/bash",
+			"use_case": "Use for interactive diagnostics in running containers.",
+			"category": "Containers",
+			"tags": ["exec", "shell", "container"],
+			"examples": [
+				{
+					"description": "Run one command",
+					"command": "podman exec container_name env"
+				}
+			],
+			"danger_level": "caution"
+		},
+		{
+			"id": "podman-stop-rm",
+			"name": "Stop and remove container",
+			"description": "Stop then remove container.",
+			"command": "podman stop container_name && podman rm container_name",
+			"use_case": "Use to clean up finished or failed containers.",
+			"category": "Cleanup",
+			"tags": ["stop", "remove", "cleanup"],
+			"examples": [
+				{
+					"description": "Force remove running container",
+					"command": "podman rm -f container_name"
+				}
+			],
+			"danger_level": "destructive"
+		},
+		{
+			"id": "podman-rmi",
+			"name": "Remove image",
+			"description": "Delete local image from cache.",
+			"command": "podman rmi image:tag",
+			"use_case": "Use to free space or remove stale images.",
+			"category": "Cleanup",
+			"tags": ["rmi", "image", "cleanup"],
+			"examples": [
+				{
+					"description": "Force remove image",
+					"command": "podman rmi -f image:tag"
+				}
+			],
+			"danger_level": "destructive"
+		}
+	]
+}
