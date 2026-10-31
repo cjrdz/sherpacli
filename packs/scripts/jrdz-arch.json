@@ -1,0 +1,42 @@
+{
+	"$schema": "../../schemas/script-pack.schema.json",
+	"pack": {
+		"id": "jrdz-arch",
+		"name": "Local scripts",
+		"version": "1.0.0",
+		"description": "Personal automation scripts for Arch and EndeavourOS",
+		"icon": "🏔️",
+		"author": "jrdz",
+		"tags": ["arch", "linux", "maintenance"]
+	},
+	"scripts": [
+		{
+			"id": "pac-update",
+			"name": "pacUpdate",
+			"description": "Update all packages including AUR via pacman.",
+			"icon": "📦",
+			"category": "Maintenance",
+			"tags": ["update", "pacman", "aur", "arch"],
+			"requires": ["pacman"],
+			"danger_level": "caution",
+			"execution": {
+				"type": "file",
+				"path": "/usr/local/bin/pacUpdate"
+			}
+		},
+		{
+			"id": "change-directory-ownership",
+			"name": "Change directory ownership",
+			"description": "Recursively change ownership of a directory to the current user.",
+			"icon": "🔑",
+			"category": "System",
+			"tags": ["chown", "permissions", "ownership"],
+			"requires": ["sudo", "chown"],
+			"danger_level": "caution",
+			"execution": {
+				"type": "file",
+				"path": "/usr/local/bin/chownUp"
+			}
+		}
+	]
+}

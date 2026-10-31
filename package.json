@@ -1,0 +1,32 @@
+{
+	"name": "sherpacli",
+	"version": "0.1.0",
+	"license": "MIT",
+	"private": true,
+	"bin": {
+		"sherpa": "./bin/sherpa"
+	},
+	"packageManager": "bun@1.4.4",
+	"workspaces": [
+		"apps/*"
+	],
+	"scripts": {
+		"sherpa": "./bin/sherpa",
+		"dev": "cd apps/tui && bun run dev",
+		"start": "cd apps/tui && bun run start",
+		"build": "cd apps/tui && bun run build",
+		"check": "cd apps/tui && bun run check",
+		"test": "cd apps/tui && bun run test",
+		"validate": "bun run scripts/validate-pack.ts",
+		"format": "biome format --write .",
+		"lint": "biome lint ."
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.6.4",
+		"ajv": "^8.20.0"
+	},
+	"overrides": {
+		"glob": "^14.0.3",
+		"minimatch": "^11.0.3"
+	}
+}

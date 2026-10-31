@@ -1,0 +1,471 @@
+{
+	"$schema": "../../schemas/command-pack.schema.json",
+	"pack": {
+		"id": "linux",
+		"name": "Linux",
+		"version": "1.1.0",
+		"description": "Everyday Linux terminal workflows: disks, files, processes, services, logs and networking",
+		"icon": "🐧",
+		"author": "sherpacli-community",
+		"tags": ["linux", "shell", "terminal"]
+	},
+	"commands": [
+		{
+			"id": "find-large-files",
+			"name": "Find large files",
+			"description": "Show the largest files in the current directory tree.",
+			"command": "find . -type f -printf '%s %p\\n' | sort -nr | head",
+			"use_case": "Use this to identify files that may be taking up too much disk space.",
+			"category": "Filesystem",
+			"tags": ["find", "disk", "space"],
+			"examples": [
+				{
+					"description": "List the largest files in the current folder",
+					"command": "find . -type f -printf '%s %p\\n' | sort -nr | head"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "du-dir-sizes",
+			"name": "Size of each folder",
+			"description": "Summarize disk usage of every entry in a directory, smallest to largest.",
+			"command": "du -sh <dir:.>/* | sort -h",
+			"use_case": "Use when a disk is filling up and you need to know which folder is responsible.",
+			"category": "Disk",
+			"tags": ["du", "disk", "size"],
+			"examples": [
+				{
+					"description": "Check what is using space in /var",
+					"command": "sudo du -sh /var/* | sort -h"
+				}
+			],
+			"requires": ["du"],
+			"danger_level": "safe"
+		},
+		{
+			"id": "df-free-space",
+			"name": "Free space per filesystem",
+			"description": "Show used and available space for every mounted filesystem.",
+			"command": "df -h",
+			"use_case": "Use for a quick look at how full each disk or partition is.",
+			"category": "Disk",
+			"tags": ["df", "disk", "mounts"],
+			"examples": [
+				{
+					"description": "Only show real filesystems",
+					"command": "df -h -x tmpfs -x devtmpfs"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "lsblk-devices",
+			"name": "List block devices",
+			"description": "Show disks, partitions and where they are mounted.",
+			"command": "lsblk -f",
+			"use_case": "Use before mounting, formatting or resizing a disk.",
+			"category": "Disk",
+			"tags": ["lsblk", "disks", "partitions"],
+			"examples": [
+				{
+					"description": "Show sizes and models",
+					"command": "lsblk -o NAME,SIZE,MODEL,MOUNTPOINTS"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "find-by-name",
+			"name": "Find files by name",
+			"description": "Search a directory tree for files matching a pattern.",
+			"command": "find <dir:.> -iname '<pattern>'",
+			"use_case": "Use when you know part of a filename but not where it lives.",
+			"category": "Filesystem",
+			"tags": ["find", "search", "name"],
+			"examples": [
+				{
+					"description": "Find every Dockerfile under the current folder",
+					"command": "find . -iname 'Dockerfile'"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "find-recent",
+			"name": "Recently modified files",
+			"description": "List files changed within the last N days.",
+			"command": "find <dir:.> -type f -mtime -<days:1>",
+			"use_case": "Use to see what changed after an update or deploy.",
+			"category": "Filesystem",
+			"tags": ["find", "mtime", "recent"],
+			"examples": [
+				{
+					"description": "Config files changed today",
+					"command": "find /etc -type f -mtime -1"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "ls-detailed",
+			"name": "Detailed listing",
+			"description": "List files with permissions, owners, human-readable sizes and hidden files.",
+			"command": "ls -lah",
+			"use_case": "Use to inspect a folder, including dotfiles.",
+			"category": "Filesystem",
+			"tags": ["ls", "list", "hidden"],
+			"examples": [
+				{
+					"description": "Newest files first",
+					"command": "ls -laht"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "ln-symlink",
+			"name": "Create a symbolic link",
+			"description": "Point a new path at an existing file or directory.",
+			"command": "ln -s <target> <link-name>",
+			"use_case": "Use to expose a file in a second location without copying it.",
+			"category": "Filesystem",
+			"tags": ["ln", "symlink", "link"],
+			"examples": [
+				{
+					"description": "Link a script into ~/bin",
+					"command": "ln -s ~/projects/tool/run.sh ~/bin/tool"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "chmod-exec",
+			"name": "Make a file executable",
+			"description": "Add execute permission so a script can be run directly.",
+			"command": "chmod +x <file>",
+			"use_case": "Use after downloading or writing a shell script.",
+			"category": "Permissions",
+			"tags": ["chmod", "permissions", "execute"],
+			"examples": [
+				{
+					"description": "Make a deploy script runnable",
+					"command": "chmod +x ./deploy.sh"
+				}
+			],
+			"danger_level": "caution"
+		},
+		{
+			"id": "chown-recursive",
+			"name": "Take ownership of a folder",
+			"description": "Recursively change owner and group to your user.",
+			"command": "sudo chown -R \"$USER\":\"$USER\" <dir>",
+			"use_case": "Use when files were created by root (for example by a container) and you can no longer edit them.",
+			"category": "Permissions",
+			"tags": ["chown", "ownership", "sudo"],
+			"examples": [
+				{
+					"description": "Fix ownership of a project folder",
+					"command": "sudo chown -R \"$USER\":\"$USER\" ~/projects/app"
+				}
+			],
+			"requires": ["sudo"],
+			"danger_level": "caution"
+		},
+		{
+			"id": "ps-top-memory",
+			"name": "Top processes by memory",
+			"description": "List the processes using the most memory.",
+			"command": "ps aux --sort=-%mem | head -n 15",
+			"use_case": "Use when the machine is slow or swapping.",
+			"category": "Processes",
+			"tags": ["ps", "memory", "top"],
+			"examples": [
+				{
+					"description": "Top processes by CPU",
+					"command": "ps aux --sort=-%cpu | head -n 15"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "pgrep-name",
+			"name": "Find a process by name",
+			"description": "Show PIDs and full command lines matching a name.",
+			"command": "pgrep -af <name>",
+			"use_case": "Use to get the PID of a program before inspecting or stopping it.",
+			"category": "Processes",
+			"tags": ["pgrep", "pid", "search"],
+			"examples": [
+				{
+					"description": "Find running node processes",
+					"command": "pgrep -af node"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "kill-pid",
+			"name": "Stop a process",
+			"description": "Ask a process to exit gracefully with SIGTERM.",
+			"command": "kill <pid>",
+			"use_case": "Use to stop a program that will not close normally.",
+			"category": "Processes",
+			"tags": ["kill", "sigterm", "stop"],
+			"examples": [
+				{
+					"description": "Stop process 4242",
+					"command": "kill 4242"
+				}
+			],
+			"danger_level": "caution"
+		},
+		{
+			"id": "kill-force",
+			"name": "Force-kill a process",
+			"description": "Terminate a process immediately with SIGKILL. It gets no chance to clean up.",
+			"command": "kill -9 <pid>",
+			"use_case": "Use only when a graceful kill did not work.",
+			"category": "Processes",
+			"tags": ["kill", "sigkill", "force"],
+			"examples": [
+				{
+					"description": "Force-kill process 4242",
+					"command": "kill -9 4242"
+				}
+			],
+			"danger_level": "destructive"
+		},
+		{
+			"id": "port-in-use",
+			"name": "What is using a port",
+			"description": "Show which process is listening on a TCP or UDP port.",
+			"command": "sudo ss -tulpn | grep ':<port>'",
+			"use_case": "Use when a server fails with 'address already in use'.",
+			"category": "Network",
+			"tags": ["ss", "port", "listen"],
+			"examples": [
+				{
+					"description": "Check port 8080",
+					"command": "sudo ss -tulpn | grep ':8080'"
+				}
+			],
+			"requires": ["ss", "sudo"],
+			"danger_level": "caution"
+		},
+		{
+			"id": "ip-addresses",
+			"name": "Show IP addresses",
+			"description": "Brief list of network interfaces and their addresses.",
+			"command": "ip -br addr",
+			"use_case": "Use to find your machine's local IP.",
+			"category": "Network",
+			"tags": ["ip", "address", "interfaces"],
+			"examples": [
+				{
+					"description": "Show the routing table",
+					"command": "ip route"
+				}
+			],
+			"requires": ["ip"],
+			"danger_level": "safe"
+		},
+		{
+			"id": "ping-host",
+			"name": "Check if a host is reachable",
+			"description": "Send a few ICMP pings and report latency and loss.",
+			"command": "ping -c 4 <host>",
+			"use_case": "Use as a first step when a service seems unreachable.",
+			"category": "Network",
+			"tags": ["ping", "latency", "connectivity"],
+			"examples": [
+				{
+					"description": "Ping a public resolver",
+					"command": "ping -c 4 1.1.1.1"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "dig-dns",
+			"name": "Look up DNS records",
+			"description": "Resolve a domain and print only the answers.",
+			"command": "dig +short <domain>",
+			"use_case": "Use to check DNS changes or debug name resolution.",
+			"category": "Network",
+			"tags": ["dig", "dns", "lookup"],
+			"examples": [
+				{
+					"description": "Look up MX records",
+					"command": "dig +short MX example.com"
+				}
+			],
+			"requires": ["dig"],
+			"danger_level": "safe"
+		},
+		{
+			"id": "systemctl-status",
+			"name": "Service status",
+			"description": "Show whether a systemd service is running, plus its latest log lines.",
+			"command": "systemctl status <service>",
+			"use_case": "Use when a background service is not behaving.",
+			"category": "Services",
+			"tags": ["systemctl", "systemd", "status"],
+			"examples": [
+				{
+					"description": "Check the SSH daemon",
+					"command": "systemctl status sshd"
+				}
+			],
+			"requires": ["systemctl"],
+			"danger_level": "safe"
+		},
+		{
+			"id": "systemctl-restart",
+			"name": "Restart a service",
+			"description": "Stop and start a systemd service.",
+			"command": "sudo systemctl restart <service>",
+			"use_case": "Use after changing a service's configuration.",
+			"category": "Services",
+			"tags": ["systemctl", "restart", "systemd"],
+			"examples": [
+				{
+					"description": "Restart Docker",
+					"command": "sudo systemctl restart docker"
+				}
+			],
+			"requires": ["systemctl", "sudo"],
+			"danger_level": "caution"
+		},
+		{
+			"id": "journalctl-follow",
+			"name": "Follow a service's logs",
+			"description": "Stream new journal entries for one systemd unit.",
+			"command": "journalctl -u <service> -f",
+			"use_case": "Use while reproducing a problem with a service. Press r to run it, since preview stops after 10 seconds.",
+			"category": "Logs",
+			"tags": ["journalctl", "logs", "follow"],
+			"examples": [
+				{
+					"description": "Logs for this boot only",
+					"command": "journalctl -u <service> -b"
+				}
+			],
+			"requires": ["journalctl"],
+			"danger_level": "safe"
+		},
+		{
+			"id": "journalctl-errors",
+			"name": "Errors since boot",
+			"description": "Show journal entries with priority error or worse from the current boot.",
+			"command": "journalctl -p err -b",
+			"use_case": "Use to spot failing services or hardware after a restart.",
+			"category": "Logs",
+			"tags": ["journalctl", "errors", "boot"],
+			"examples": [
+				{
+					"description": "Errors from the previous boot",
+					"command": "journalctl -p err -b -1"
+				}
+			],
+			"requires": ["journalctl"],
+			"danger_level": "safe"
+		},
+		{
+			"id": "tail-follow",
+			"name": "Follow a log file",
+			"description": "Print new lines as they are appended to a file.",
+			"command": "tail -f <file>",
+			"use_case": "Use to watch an application log in real time.",
+			"category": "Logs",
+			"tags": ["tail", "follow", "logs"],
+			"examples": [
+				{
+					"description": "Last 100 lines, then follow",
+					"command": "tail -n 100 -f /var/log/syslog"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "tar-create",
+			"name": "Create a .tar.gz archive",
+			"description": "Compress a folder into a gzip tarball.",
+			"command": "tar -czvf <archive:backup>.tar.gz <dir>",
+			"use_case": "Use to back up or ship a directory.",
+			"category": "Archives",
+			"tags": ["tar", "gzip", "compress"],
+			"examples": [
+				{
+					"description": "Archive a project folder",
+					"command": "tar -czvf app.tar.gz ./app"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "tar-extract",
+			"name": "Extract a .tar.gz archive",
+			"description": "Unpack a gzip tarball into the current folder.",
+			"command": "tar -xzvf <archive>",
+			"use_case": "Use after downloading a release or backup.",
+			"category": "Archives",
+			"tags": ["tar", "extract", "gzip"],
+			"examples": [
+				{
+					"description": "Extract into a specific folder",
+					"command": "tar -xzvf app.tar.gz -C /tmp/app"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "system-info",
+			"name": "Kernel and OS version",
+			"description": "Print the kernel version, architecture and distribution name.",
+			"command": "uname -a && cat /etc/os-release",
+			"use_case": "Use when reporting a bug or checking compatibility.",
+			"category": "System",
+			"tags": ["uname", "kernel", "os"],
+			"examples": [
+				{
+					"description": "Kernel release only",
+					"command": "uname -r"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "memory-usage",
+			"name": "Memory usage",
+			"description": "Show total, used and available RAM and swap.",
+			"command": "free -h",
+			"use_case": "Use to check whether the system is short on memory.",
+			"category": "System",
+			"tags": ["free", "memory", "ram"],
+			"examples": [
+				{
+					"description": "Refresh every 2 seconds",
+					"command": "watch -n 2 free -h"
+				}
+			],
+			"danger_level": "safe"
+		},
+		{
+			"id": "uptime-load",
+			"name": "Uptime and load",
+			"description": "Show how long the system has been up and its load averages.",
+			"command": "uptime",
+			"use_case": "Use for a quick health check of a server.",
+			"category": "System",
+			"tags": ["uptime", "load", "health"],
+			"examples": [
+				{
+					"description": "Uptime in a readable form",
+					"command": "uptime -p"
+				}
+			],
+			"danger_level": "safe"
+		}
+	]
+}
