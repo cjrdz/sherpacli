@@ -64,7 +64,7 @@ export function App() {
 
 	// ── Layout ────────────────────────────────────────────────────────────
 	const isCompact = createMemo(() => dimensions().width < COMPACT_WIDTH);
-	const packsWidth = createMemo(() => clamp(Math.floor(dimensions().width * 0.2), 24, 34));
+	const packsWidth = createMemo(() => clamp(Math.floor(dimensions().width * 0.2), 26, 34));
 	const detailWidth = createMemo(() =>
 		isCompact() ? Math.floor(dimensions().width * 0.5) : clamp(Math.floor(dimensions().width * 0.4), 44, 80),
 	);

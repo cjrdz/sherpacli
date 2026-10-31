@@ -6,6 +6,16 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-10-31
+
+### Fixed
+
+- Pack names with emoji icons were truncated (for example "L... scripts") in 120-column terminals. The packs panel is now at least 26 columns wide.
+
+### Changed
+
+- The README shows real screenshots of search, the placeholder form, preview output and the destructive-command confirmation.
+
 ## [0.1.0] - 2026-10-31
 
 First public release.
@@ -30,5 +40,6 @@ First public release.
 - JSON schemas, pack validation (`bun run validate`), Biome formatting and linting, and unit plus headless UI tests.
 - MIT license.
 
-[Unreleased]: https://github.com/cjrdz/sherpacli/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/cjrdz/sherpacli/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/cjrdz/sherpacli/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/cjrdz/sherpacli/releases/tag/v0.1.0

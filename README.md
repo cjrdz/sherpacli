@@ -10,24 +10,7 @@ including packs for your personal scripts.
 Built with [OpenTUI](https://opentui.com/docs/getting-started/), [SolidJS](https://docs.solidjs.com/), TypeScript and [Bun](https://bun.sh).
 It works offline. Nothing leaves your machine unless you run `sherpa import`.
 
-```text
- ⛰ SherpaCLI 10 packs · 111 commands                                                            ? help · q quit
- ╭────────────────────────────────────────────────────────────────────────────────────────────────────────────╮
- │ ❯ kube logs                                                                                 1 in all packs │
- ╰────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
- ╭─ Packs ──────────────╮╭─ Search · "kube logs" ─────────────────╮╭─ Detail ─────────────────────────────────╮
- │ ◆ All            111 ││ ● View pod logs               ☸️ Debug ││ View pod logs                    ● safe  │
- │ ★ Favorites        0 ││ $ kubectl logs <pod-name>              ││ Print logs for a pod.                    │
- │                      ││                                        ││                                          │
- │ ▾ Commands       109 ││                                        ││  command                                 │
- │   community          ││                                        ││  $ kubectl logs <pod-name>               │
- │    🐳 Docker      10 ││                                        ││  needs: pod-name                         │
- │    🌿 Git         12 ││                                        ││                                          │
- │    ☸️ Kubernetes  10 ││                                        ││ Pack      ☸️ Kubernetes community        │
- │    🐧 Linux       28 ││                                        ││ Category  Debug                          │
- ╰──────────────────────╯╰────────────────────────────────── 1/1 ─╯╰──────────────────────────────────────────╯
-  SEARCH  type to filter · ↑↓ pick · Enter go to results · Esc clear
-```
+![SherpaCLI searching for "logs" across every pack](docs/images/search.png)
 
 ## Contents
 
@@ -55,6 +38,16 @@ It works offline. Nothing leaves your machine unless you run `sherpa import`.
 - **Favorites and recents.** Press `f` to star a command. Recently used commands are tracked automatically.
 - **Your scripts too.** Script packs can point at files in `/usr/local/bin`, prompt for arguments, or offer a menu of options.
 - **Cheat sheet import.** `sherpa import docker kubernetes` turns quickref.me sheets into local packs.
+
+### Screenshots
+
+| Fill in the blanks before copying or running | Preview output without leaving Sherpa |
+| --- | --- |
+| ![Placeholder form for kubectl logs](docs/images/form.png) | ![Preview of du -sh output in the Output panel](docs/images/preview.png) |
+
+| Destructive commands ask you to type `yes` |
+| --- |
+| ![Confirmation dialog for kill -9](docs/images/confirm.png) |
 
 ## Requirements
 
